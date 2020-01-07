@@ -41,6 +41,9 @@ namespace LearnTest
             return result.next;
         }
 
+        /// <summary>
+        /// 约瑟夫环问题
+        /// </summary>
         static void JosephusTest()
         {
             MyCircularLinkedList<int> linkedList = new MyCircularLinkedList<int>();
