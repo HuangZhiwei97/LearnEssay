@@ -1,5 +1,7 @@
 ﻿using LearnTest.LinkedList;
+using LearnTest.Stack;
 using System;
+using System.Collections.Generic;
 
 namespace LearnTest
 {
@@ -7,14 +9,61 @@ namespace LearnTest
     {
         static void Main(string[] args)
         {
-            ListNode ex1 = new ListNode(2);
-            ex1.next = new ListNode(4);
-            ex1.next.next= new ListNode(3);
-            ListNode ex2 = new ListNode(5);
-            ex2.next = new ListNode(6);
-            ex2.next.next = new ListNode(4);
-            ListNode result = AddTwoNumbers(ex1, ex2);
+            CodeTimer.Initialize();
+            string s = "asdfa";
+            HashSet<char> set = new HashSet<char>();
+            set.Add(s[0]);
+            Console.WriteLine(set);
+            //ListNode ex1 = new ListNode(2);
+            //ex1.next = new ListNode(4);
+            //ex1.next.next= new ListNode(3);
+            //ListNode ex2 = new ListNode(5);
+            //ex2.next = new ListNode(6);
+            //ex2.next.next = new ListNode(4);
+            //ListNode result = AddTwoNumbers(ex1, ex2);
             //MySingleLinkedListTest();
+            //StackWithArrayTest();
+        }
+
+        /// <summary>
+        /// s="pwwkew",abcabcbb，bbbbb
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public static int LengthOfLongestSubstring(string s)
+        {
+            
+            return 0;
+        }
+        static void SortedAddInTest()
+        {
+            Random random = new Random();
+            int array_count = 100000;
+            List<int> intList = new List<int>();
+            for (int i = 0; i <= array_count; i++)
+            {
+                int ran = random.Next();
+                intList.Add(ran);
+            }
+
+            SortedList<int, string> sortedlist_int = new SortedList<int, string>();
+            SortedDictionary<int, string> dic_int = new SortedDictionary<int, string>();
+            CodeTimer.Time("sortedList_Add_int", 1, () =>
+            {
+                foreach (var item in intList)
+                {
+                    if (sortedlist_int.ContainsKey(item) == false)
+                        sortedlist_int.Add(item, "test" + item.ToString());
+                }
+            });
+            CodeTimer.Time("sortedDictionary_Add_int", 1, () =>
+            {
+                foreach (var item in intList)
+                {
+                    if (dic_int.ContainsKey(item) == false)
+                        dic_int.Add(item, "test" + item.ToString());
+                }
+            });
         }
 
         /// <summary>
@@ -175,6 +224,44 @@ namespace LearnTest
             Console.WriteLine("----------------------------");
         }
 
+        /// <summary>
+        /// 基于数组的栈的测试
+        /// </summary>
+        static void StackWithArrayTest()
+        {
+            MyArrayStack<int> stack = new MyArrayStack<int>(10);
+            Console.WriteLine(stack.IsEmpty());
+
+            Random rand = new Random();
+            for (int i = 0; i < 10; i++)
+            {
+                stack.Push(rand.Next(1, 10));
+            }
+            Console.WriteLine("IsEmpty:{0}", stack.IsEmpty());
+            Console.WriteLine("Size:{0}", stack.Size);
+            Console.WriteLine("-------------------------------");
+
+            for (int i = 0; i < 10; i++)
+            {
+                int node = stack.Pop();
+                Console.Write(node + " ");
+            }
+            Console.WriteLine();
+            Console.WriteLine("IsEmpty:{0}", stack.IsEmpty());
+            Console.WriteLine("Size:{0}", stack.Size);
+            Console.WriteLine("-------------------------------");
+
+            for (int i = 0; i < 15; i++)
+            {
+                stack.Push(rand.Next(1, 15));
+            }
+            for (int i = 0; i < 15; i++)
+            {
+                int node = stack.Pop();
+                Console.Write(node + " ");
+            }
+            Console.WriteLine();
+        }
     }
 
 }
