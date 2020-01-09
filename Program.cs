@@ -10,10 +10,12 @@ namespace LearnTest
         static void Main(string[] args)
         {
             CodeTimer.Initialize();
-            string s = "asdfa";
-            HashSet<char> set = new HashSet<char>();
-            set.Add(s[0]);
-            Console.WriteLine(set);
+            Console.WriteLine("Step1:请输入人数N");
+            char[] s = Convert.ToString(Console.ReadLine()).ToCharArray();
+            CodeTimer.Time("sortedList_Add_int", 1, () =>
+            {
+                Console.WriteLine(LengthOfLongestSubstring(s));
+            });
             //ListNode ex1 = new ListNode(2);
             //ex1.next = new ListNode(4);
             //ex1.next.next= new ListNode(3);
@@ -30,10 +32,22 @@ namespace LearnTest
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
-        public static int LengthOfLongestSubstring(string s)
+        public static int LengthOfLongestSubstring(char[] s)
         {
+            List<char> list = new List<char>();
+            int ans = 0;
+            for(int i = 0; i < s.Length; i++)
+            {
+                if(list.Contains(s[i]))
+                {
+                    list.RemoveRange(0, list.IndexOf(s[i]) + 1);
+                }
+                list.Add(s[i]);
+                ans = list.Count>ans?list.Count:ans;
+                
+            }
             
-            return 0;
+            return ans;
         }
         static void SortedAddInTest()
         {
