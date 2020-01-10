@@ -1,6 +1,7 @@
 ﻿using LearnTest.LinkedList;
 using LearnTest.Stack;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace LearnTest
@@ -10,11 +11,9 @@ namespace LearnTest
         static void Main(string[] args)
         {
             CodeTimer.Initialize();
-            Console.WriteLine("Step1:请输入人数N");
-            char[] s = Convert.ToString(Console.ReadLine()).ToCharArray();
             CodeTimer.Time("sortedList_Add_int", 1, () =>
             {
-                Console.WriteLine(LengthOfLongestSubstring(s));
+                Console.WriteLine();
             });
             //ListNode ex1 = new ListNode(2);
             //ex1.next = new ListNode(4);
@@ -25,6 +24,38 @@ namespace LearnTest
             //ListNode result = AddTwoNumbers(ex1, ex2);
             //MySingleLinkedListTest();
             //StackWithArrayTest();
+        }
+
+        /// <summary>
+        /// 寻找两个有序数组的中位数
+        ///  * nums1 = [1, 2]
+        ///  nums2 = [3, 4]
+        ///  则中位数是(2 + 3)/2 = 2.5
+        /// </summary>
+        /// <param name="nums1"></param>
+        /// <param name="nums2"></param>
+        /// <returns></returns>
+        public static double FindMedianSortedArrays(int[] nums1, int[] nums2)
+        {
+            ArrayList arrayList = new ArrayList();
+            //int[] temp1 = { 0 };
+            //int[] temp2 = { 0 };
+            int n = nums1.Length;
+            int m = nums2.Length;
+            arrayList.AddRange(nums1);
+            arrayList.AddRange(nums2);
+            arrayList.Sort();
+            if (arrayList.Count % 2 == 0)
+            {
+                int a =(int) arrayList[arrayList.Count / 2];
+                int b = (int)arrayList[arrayList.Count / 2 - 1];
+                return (a + b )*1.0/ 2;
+            }
+            else
+            {
+                return (int)arrayList[arrayList.Count / 2] * 1.0;
+            }
+
         }
 
         /// <summary>
