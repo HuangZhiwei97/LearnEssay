@@ -1,5 +1,8 @@
 ﻿using LearnTest.LinkedList;
+using LearnTest.Stack;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace LearnTest
 {
@@ -7,14 +10,105 @@ namespace LearnTest
     {
         static void Main(string[] args)
         {
-            ListNode ex1 = new ListNode(2);
-            ex1.next = new ListNode(4);
-            ex1.next.next= new ListNode(3);
-            ListNode ex2 = new ListNode(5);
-            ex2.next = new ListNode(6);
-            ex2.next.next = new ListNode(4);
-            ListNode result = AddTwoNumbers(ex1, ex2);
+            CodeTimer.Initialize();
+            CodeTimer.Time("sortedList_Add_int", 1, () =>
+            {
+                Console.WriteLine();
+            });
+            //ListNode ex1 = new ListNode(2);
+            //ex1.next = new ListNode(4);
+            //ex1.next.next= new ListNode(3);
+            //ListNode ex2 = new ListNode(5);
+            //ex2.next = new ListNode(6);
+            //ex2.next.next = new ListNode(4);
+            //ListNode result = AddTwoNumbers(ex1, ex2);
             //MySingleLinkedListTest();
+            //StackWithArrayTest();
+        }
+
+        /// <summary>
+        /// 寻找两个有序数组的中位数
+        ///  * nums1 = [1, 2]
+        ///  nums2 = [3, 4]
+        ///  则中位数是(2 + 3)/2 = 2.5
+        /// </summary>
+        /// <param name="nums1"></param>
+        /// <param name="nums2"></param>
+        /// <returns></returns>
+        public static double FindMedianSortedArrays(int[] nums1, int[] nums2)
+        {
+            ArrayList arrayList = new ArrayList();
+            //int[] temp1 = { 0 };
+            //int[] temp2 = { 0 };
+            int n = nums1.Length;
+            int m = nums2.Length;
+            arrayList.AddRange(nums1);
+            arrayList.AddRange(nums2);
+            arrayList.Sort();
+            if (arrayList.Count % 2 == 0)
+            {
+                int a =(int) arrayList[arrayList.Count / 2];
+                int b = (int)arrayList[arrayList.Count / 2 - 1];
+                return (a + b )*1.0/ 2;
+            }
+            else
+            {
+                return (int)arrayList[arrayList.Count / 2] * 1.0;
+            }
+
+        }
+
+        /// <summary>
+        /// s="pwwkew",abcabcbb，bbbbb
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public static int LengthOfLongestSubstring(char[] s)
+        {
+            List<char> list = new List<char>();
+            int ans = 0;
+            for(int i = 0; i < s.Length; i++)
+            {
+                if(list.Contains(s[i]))
+                {
+                    list.RemoveRange(0, list.IndexOf(s[i]) + 1);
+                }
+                list.Add(s[i]);
+                ans = list.Count>ans?list.Count:ans;
+                
+            }
+            
+            return ans;
+        }
+        static void SortedAddInTest()
+        {
+            Random random = new Random();
+            int array_count = 100000;
+            List<int> intList = new List<int>();
+            for (int i = 0; i <= array_count; i++)
+            {
+                int ran = random.Next();
+                intList.Add(ran);
+            }
+
+            SortedList<int, string> sortedlist_int = new SortedList<int, string>();
+            SortedDictionary<int, string> dic_int = new SortedDictionary<int, string>();
+            CodeTimer.Time("sortedList_Add_int", 1, () =>
+            {
+                foreach (var item in intList)
+                {
+                    if (sortedlist_int.ContainsKey(item) == false)
+                        sortedlist_int.Add(item, "test" + item.ToString());
+                }
+            });
+            CodeTimer.Time("sortedDictionary_Add_int", 1, () =>
+            {
+                foreach (var item in intList)
+                {
+                    if (dic_int.ContainsKey(item) == false)
+                        dic_int.Add(item, "test" + item.ToString());
+                }
+            });
         }
 
         /// <summary>
@@ -175,6 +269,44 @@ namespace LearnTest
             Console.WriteLine("----------------------------");
         }
 
+        /// <summary>
+        /// 基于数组的栈的测试
+        /// </summary>
+        static void StackWithArrayTest()
+        {
+            MyArrayStack<int> stack = new MyArrayStack<int>(10);
+            Console.WriteLine(stack.IsEmpty());
+
+            Random rand = new Random();
+            for (int i = 0; i < 10; i++)
+            {
+                stack.Push(rand.Next(1, 10));
+            }
+            Console.WriteLine("IsEmpty:{0}", stack.IsEmpty());
+            Console.WriteLine("Size:{0}", stack.Size);
+            Console.WriteLine("-------------------------------");
+
+            for (int i = 0; i < 10; i++)
+            {
+                int node = stack.Pop();
+                Console.Write(node + " ");
+            }
+            Console.WriteLine();
+            Console.WriteLine("IsEmpty:{0}", stack.IsEmpty());
+            Console.WriteLine("Size:{0}", stack.Size);
+            Console.WriteLine("-------------------------------");
+
+            for (int i = 0; i < 15; i++)
+            {
+                stack.Push(rand.Next(1, 15));
+            }
+            for (int i = 0; i < 15; i++)
+            {
+                int node = stack.Pop();
+                Console.Write(node + " ");
+            }
+            Console.WriteLine();
+        }
     }
 
 }
